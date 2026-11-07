@@ -1,0 +1,34 @@
+Supplied code, as given in the manual
+5.1 minimax on [3, 5, 2, 9, 0, 7, 0, 0] -> 5
+5.2 alphabeta on [3, 5, 2, 9, 3, 5, 2, 9] -> 5
+
+Task 1: Minimax bottom-up trace, tree 5.1 (6 scores zero-padded to [3, 5, 2, 9, 0, 7, 0, 0])
+depth | type | calculations
+3 | leaf | L0 = 3; L1 = 5; L2 = 2; L3 = 9; L4 = 0; L5 = 7; L6 = 0; L7 = 0
+2 | MAX | max(3, 5) = 5; max(2, 9) = 9; max(0, 7) = 7; max(0, 0) = 0
+1 | MIN | min(5, 9) = 5; min(7, 0) = 0
+0 | MAX | max(5, 0) = 5
+Root value = 5; root action = Left (first child wins ties)
+
+Task 1: Minimax bottom-up trace, tree 5.2 [3, 5, 2, 9, 3, 5, 2, 9]
+depth | type | calculations
+3 | leaf | L0 = 3; L1 = 5; L2 = 2; L3 = 9; L4 = 3; L5 = 5; L6 = 2; L7 = 9
+2 | MAX | max(3, 5) = 5; max(2, 9) = 9; max(3, 5) = 5; max(2, 9) = 9
+1 | MIN | min(5, 9) = 5; min(5, 9) = 5
+0 | MAX | max(5, 5) = 5
+Root value = 5; root action = Left (first child wins ties)
+
+Task 2: leaf-evaluation counters
+tree | algorithm | root value | root action | leaves evaluated | evaluation order (leaf indices)
+5.1 (padded) | Minimax | 5 | Left | 8 of 8 | 0, 1, 2, 3, 4, 5, 6, 7
+5.1 (padded) | Alpha-beta | 5 | Left | 8 of 8 | 0, 1, 2, 3, 4, 5, 6, 7
+5.2 | Minimax | 5 | Left | 8 of 8 | 0, 1, 2, 3, 4, 5, 6, 7
+5.2 | Alpha-beta | 5 | Left | 6 of 8 | 0, 1, 2, 3, 4, 5
+
+Alpha-beta pruning decisions
+tree 5.1 (padded): no pruning occurred (all 8 leaves evaluated)
+tree 5.2: pruned at MIN node (depth 1, index 1) after its first child: alpha = 5, beta = 5 (alpha >= beta); skipped leaf indices 6, 7
+
+Verification
+tree 5.1 (padded): same root value = True; same root action = True; alpha-beta leaves 8 <= minimax leaves 8: True
+tree 5.2: same root value = True; same root action = True; alpha-beta leaves 6 <= minimax leaves 8: True

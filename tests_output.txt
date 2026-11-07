@@ -1,0 +1,27 @@
+== Part 1: edge cases ==
+PASS | single leaf [7]: both return 7 after evaluating 1 leaf
+PASS | single leaf: no root action exists
+PASS | two leaves [4, 9]: MAX picks 9 (Right), both leaves evaluated
+info | all-equal leaves: alpha-beta evaluates 5 of 8
+PASS | all-equal leaves: same value 5, tie goes to Left, no extra work
+PASS | negative utilities: values agree
+info | zero-padded tree [3, 5, 2, 9, 0, 7, 0, 0]: root value 5, action Left
+info | same 6 scores with NO dummy branch: root value 7, action Right
+PASS | padding assumption matters: padded root 5 (Left) vs. unpadded root 7 (Right)
+
+== Part 2: 2000 random trees (seed 5) ==
+depth | minimax leaves (400 trees) | alpha-beta leaves | alpha-beta / minimax
+1 | 800 | 800 | 1.00
+2 | 1600 | 1445 | 0.90
+3 | 3200 | 2693 | 0.84
+4 | 6400 | 4577 | 0.72
+5 | 12800 | 8235 | 0.64
+total | 24800 | 17750 | 0.72
+trees where alpha-beta evaluated fewer leaves: 1240 of 2000
+PASS | alpha-beta root value equals minimax on all 2000 trees
+PASS | alpha-beta root action equals minimax action on all 2000 trees
+PASS | alpha-beta never evaluates more leaves than minimax
+PASS | alpha-beta evaluated fewer leaves in total
+PASS | root value is unchanged by every branch ordering (100 random trees x 128 orderings)
+
+11/11 checks passed
